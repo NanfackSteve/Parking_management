@@ -80,8 +80,25 @@ class Parking:
 
         number = 1
         if self.occupation > 0:
+            print(
+                """
++---------------------------------------------------------------------------------------+
+| No\t| Immatricul.\t| Marque\t| Modele\t| Couleur\t| Kilometrage\t|
++---------------------------------------------------------------------------------------+
+                    """
+            )
             for vehicule in self.vehicules:
-                print(number, " - ", vehicule)
+                print(
+                    " ",
+                    number,
+                    "\t| {} \t| {}  \t| {}  \t| {}  \t| {} \t|".format(
+                        vehicule[0],
+                        vehicule[1],
+                        vehicule[2],
+                        vehicule[3],
+                        vehicule[4],
+                    ),
+                )
                 number += 1
             return True
         else:
@@ -158,23 +175,55 @@ class Parking:
 if __name__ == "__main__":
 
     myPark = Parking("sudo", 7)
-    print("\nCapacity:", myPark.getCapacity())
-    print("Occupation before loading file:", myPark.getOccupation())
 
-    myPark.load_file()
+    print(
+        """
++-----------------------+
+| Parking name : {}\t|
+| Capacity : {} \t\t|
++-----------------------+
+          """.format(
+            myPark.getName(), myPark.getCapacity()
+        )
+    )
+
+    print("Occupation before loading file:", myPark.getOccupation())
+    myPark.load_file("./vehicules.csv")
     print("Occupation after loading file:", myPark.getOccupation())
 
     print("\nList of Vehicules:", myPark.getOccupation())
     myPark.list_vehicules()
-    print("\nVehicule 'OST8989': ", myPark.getVehicule("OST8989"))
 
-    print("\nWe remove: HDT6542")
+    print(
+        """
++-----------------------------------------+
+| Vehicule 'OST8989' is Present ? -> {} |
++-----------------------------------------+
+infos: {}
+        """.format(
+            myPark.is_vehicule("OST8989"), myPark.getVehicule("OST8989")
+        )
+    )
+
+    print(
+        """
++--------------------+
+| We remove: HDT6542 |
++--------------------+
+          """
+    )
     myPark.remove_vehicule("HDT6542")
-    print("\nList of Vehicules: ", myPark.getOccupation())
-    myPark.list_vehicules()
+    print("Removed !! ... List of Vehicules: ", myPark.getOccupation())
+    # myPark.list_vehicules()
 
-    print("\nWe Add: NSU2022")
+    print(
+        """
++-------------------+
+| We Add : NSU2022  |
++-------------------+
+          """
+    )
     myPark.add_vehicule(["NSU2022", "Lamborgini", "Gallardo", "noir", "70000.03"])
-    print("\nList of Vehicules: ", myPark.getOccupation())
+    print("Add !! .... List of Vehicules: ", myPark.getOccupation())
     myPark.list_vehicules()
     print()
